@@ -23,11 +23,14 @@ pandas==2.2.1
 platformdirs==4.2.0
 plumber==1.7
 python-dateutil==2.9.0.post0
+python-http-client==3.3.7
 pytz==2024.1
+sendgrid==6.11.0
 setuptools==69.2.0
 six==1.16.0
 SQLAlchemy==2.0.28
 sqlparse==0.4.4
+starkbank-ecdsa==2.2.0
 typing_extensions==4.10.0
 tzdata==2024.1
 virtualenv==20.25.1

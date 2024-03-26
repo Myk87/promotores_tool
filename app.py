@@ -9,6 +9,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from markupsafe import Markup
 from datetime import datetime
+import os
 
 app = Flask(__name__, template_folder="template")
 app.secret_key = "8462a954b9f6d4ce14b42ccd24a90d500d917466021cab89"
@@ -167,7 +168,7 @@ def enviar_correo(destinatario, contrasena_temporal):
     )
 
     try:
-        sg = SendGridAPIClient('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')
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
         response = sg.send(message)
         print(response.status_code)
         print(response.body)
