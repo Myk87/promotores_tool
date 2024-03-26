@@ -1,0 +1,19 @@
+# Archivo .editorconfig
+
+# Configuración predeterminada para todos los archivos
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+[*.{html,js}]
+ignore = *{{*,*}}*
+
+# Configuración específica para archivos HTML
+[*.html]
+# Ignorar errores relacionados con la sintaxis de Jinja
+# Comentamos las siguientes líneas para deshabilitar las reglas de Jinja en HTML
+# jinja_trim_blocks = true
+# jinja_lstrip_blocks = true

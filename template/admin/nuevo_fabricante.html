@@ -1,0 +1,127 @@
+{% include("admin/cabecera.html")%}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Fabricante y Registros de Fabricantes</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Crear Fabricante</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/crear-fabricante" method="POST">
+                            <div class="form-group">
+                                <label for="nombre_fabricante">Insertar nuevo fabricante:</label>
+                                <input type="text" class="form-control" id="nombre_fabricante" name="nombre_fabricante">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Crear Fabricante</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Registros de Fabricantes</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre del Fabricante</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for fabricante in fabricantes %}
+                                <tr id="fila-{{ fabricante[0] }}">
+                                    <td>{{ fabricante[0] }}</td>
+                                    <td id="nombre-{{ fabricante[0] }}">{{ fabricante[1] }}</td>
+                                    <td>
+                                        <button onclick="editarFabricante('{{ fabricante[0] }}')" class="btn btn-primary">Editar</button>
+                                        <button onclick="guardarCambios('{{ fabricante[0] }}')" class="btn btn-success" style="display: none;">Guardar</button>
+                                        <button onclick="eliminarFabricante('{{ fabricante[0] }}')" class="btn btn-danger">Eliminar</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS (opcional, solo si necesitas funcionalidades de Bootstrap) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+        // Llamar a la función para crear un registro cuando la página se cargue
+        document.addEventListener("DOMContentLoaded", function() {
+            crearRegistro();
+        });
+
+        // Función para editar un fabricante
+        function editarFabricante(idFabricante) {
+            var nombreFabricante = document.getElementById("nombre-" + idFabricante);
+            var botonEditar = document.querySelector("#fila-" + idFabricante + " .btn-primary");
+            var botonGuardar = document.querySelector("#fila-" + idFabricante + " .btn-success");
+            botonEditar.style.display = "none";
+            botonGuardar.style.display = "block";
+            nombreFabricante.contentEditable = true;
+            nombreFabricante.focus();
+        }
+
+        // Función para guardar los cambios de un fabricante
+        function guardarCambios(idFabricante) {
+            var nombreFabricante = document.getElementById("nombre-" + idFabricante);
+            var nuevoNombre = nombreFabricante.textContent;
+            // Aquí puedes enviar una solicitud POST al servidor para guardar los cambios del fabricante con el ID proporcionado
+            // Después de guardar los cambios en el servidor, actualiza la tabla para reflejar los cambios
+            // Por ejemplo, puedes ocultar el botón de guardar y mostrar el botón de editar nuevamente
+            var botonEditar = document.querySelector("#fila-" + idFabricante + " .btn-primary");
+            var botonGuardar = document.querySelector("#fila-" + idFabricante + " .btn-success");
+            botonGuardar.style.display = "none";
+            botonEditar.style.display = "block";
+            nombreFabricante.contentEditable = false;
+        }
+        // Función para eliminar un fabricante
+        function eliminarFabricante(idFabricante) {
+            if (confirm("¿Estás seguro de que quieres eliminar este fabricante?")) {
+                // Realizar la solicitud de eliminación al servidor utilizando AJAX
+                fetch(`/eliminar-fabricante/${idFabricante}`, {
+                    method: 'POST',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Fabricante eliminado exitosamente");
+                        // Actualizar la tabla para reflejar los cambios eliminando la fila correspondiente
+                        var filaAEliminar = document.getElementById("fila-" + idFabricante);
+                        filaAEliminar.parentNode.removeChild(filaAEliminar);
+                    } else {
+                        alert("Hubo un error al eliminar el fabricante");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al eliminar el fabricante:', error);
+                    alert("Hubo un error al eliminar el fabricante");
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+

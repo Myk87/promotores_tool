@@ -1,0 +1,60 @@
+{% include("admin/cabecera.html")%}
+<style>
+.caja{
+    margin:  10%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+</style>
+<!-- FORMULARIO DEL REGISTRO-->
+
+<div class="caja">
+    <form class="form-control" action="crear-registro" method="post">
+
+      <h1 class="text-center t">Registro</h1>
+        {% if mensaje %}
+        <div class="alert alert-danger" role="alert">
+        {{ mensaje }}
+        </div>
+        {% endif %}
+    <div class="form-group">
+      <label for="exampleInputEmail1">Usuario</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="txtCorreo">
+      <small id="emailHelp" class="form-text text-muted"></small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="txtPassword">
+    </div>
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre" placeholder="Insertar el nombre" name="nombre">
+      </div>
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input type="text" class="form-control" id="apellido" placeholder="Insertar el Apellido" name="apellido">
+      </div>
+    <div class="form-group">
+      <label for="punto_venta">Punto de venta:</label>
+      <select class="form-select" id="punto_venta" name="punto_venta" required>
+        <option value="" disabled selected>Selecciona un punto de venta</option>
+         {% for punto_venta in puntos_venta %}
+          <option value="{{ punto_venta[0] }}">{{ punto_venta[1] }}</option>
+          {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+        <label for="fabricante">Fabricante:</label>
+        <select class="form-select" id="fabricante" name="fabricante" required>
+          <option value="" disabled selected>Selecciona un fabricante</option>
+           {% for fabricante in fabricantes %}
+            <option value="{{ fabricante[0] }}">{{ fabricante[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+      </div>
+    <div class="form-check">
+    </div>
+    <button type="submit" class="btn btn-primary">Registrar</button>
+  </form>
+</div>
+

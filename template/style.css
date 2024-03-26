@@ -1,0 +1,30 @@
+/* Estilos para un tema oscuro */
+
+/* Color de fondo oscuro para el cuerpo */
+body {
+    background-color: #343a40;
+    color: #ffffff; /* Color de texto blanco */
+}
+
+/* Estilos para las tarjetas */
+.card {
+    background-color: #454d55; /* Fondo oscuro para las tarjetas */
+}
+
+/* Estilos para los formularios y botones */
+.form-label,
+.form-select,
+.btn {
+    background-color: #343a40; /* Fondo oscuro para los formularios y botones */
+    border-color: #ffffff; /* Borde blanco */
+}
+
+/* Estilos para la tabla */
+.table {
+    background-color: #454d55; /* Fondo oscuro para la tabla */
+}
+
+/* Estilos para las filas impares de la tabla */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #343a40; /* Fondo oscuro para filas impares */
+}

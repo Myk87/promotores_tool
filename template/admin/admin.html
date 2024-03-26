@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN | PROMOTORES TOOL</title>
+</head>
+<body>
+    {% include ("admin/cabecera.html")%}
+    {% if 'logueado' in session %}
+    <p>Hola {{ session['nombre'] }}</p>
+{% endif %}
+    <a href="/">salir</a>
+</body>
+</html>
